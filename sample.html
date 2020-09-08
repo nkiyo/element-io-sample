@@ -2,7 +2,6 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <!-- TODO header, footer 横方向にぶち抜きたい -->
   <!-- TODO gridの中にgrid -->
   <!-- TODO 縦に結合するgrid -->
   <!-- TODO gridの中にjs部品 -->
@@ -11,54 +10,44 @@
 </head>
 <body>
   <div id="app">
+    <el-dialog title="hoge" :visible.sync="dialogVisible">
+    hoge
+    </el-dialog>
     <el-container>
-      <el-aside width="200px">
-        <!-- 行間がめっちゃ空く
-        <ul>
-          <li>hoge</li>
-          <li>hoge</li>
-          <li>hoge</li>
-          <li>hoge</li>
-          <li>hoge</li>
-        </ul>
+      <el-header height= "180px">
+        <el-row>
+          <el-col :span="4"><div class="grid-content">hoge1</div></el-col>
+          <el-col :span="4"><div class="grid-content">hoge1</div></el-col>
+          <el-col :span="4"><div class="grid-content">hoge1</div></el-col>
+          <el-col :span="4"><div class="grid-content">hoge1</div></el-col>
+          <el-col :span="4">
+            <el-button
+              v-loading.fullScreen.lock="fullscreenLoading"
+              @click="dialogVisible = true"
+              type="success">
+              hogesys
+            </el-button>
+          </el-col>
+          <el-col :span="4"><el-button type="danger" @click="clickDanger" v-loading="btnLoading">hogesys</el-button></el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="6"><div class="grid-content">hoge2</div></el-col>
+          <el-col :span="6"><div class="grid-content">hoge2</div></el-col>
+          <el-col :span="6"><div class="grid-content">hoge2</div></el-col>
+          <el-col :span="6"><div class="grid-content">hoge2</div></el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12"><div class="grid-content">hoge3</div></el-col>
+          <el-col :span="4"><div class="grid-content">hoge3</div></el-col>
+          <el-col :span="5"><div class="grid-content">hoge3</div></el-col>
+          <el-col :span="3"><div class="grid-content">hoge3</div></el-col>
+        </el-row>
+        <!--
         -->
-        <el-menu default-active="2" @open="handleOpen" @close="handleClose">
-          <el-menu-item index="1"><i class="el-icon-star-on"></i>item 1</el-menu-item>
-          <el-menu-item index="2"><i class="el-icon-time"></i>item 2</el-menu-item>
-          <el-menu-item index="3" disabled><i class="el-icon-lollipop"></i>item 3</el-menu-item>
-          <el-menu-item index="4"><i class="el-icon-time"></i>item 4</el-menu-item>
-          <el-menu-item index="5"><i class="el-icon-time"></i>item 5</el-menu-item>
-          <el-menu-item index="6"><i class="el-icon-time"></i>item 6</el-menu-item>
-          <el-menu-item index="7"><i class="el-icon-time"></i>item 7</el-menu-item>
-          <el-menu-item index="8"><i class="el-icon-time"></i>item 8</el-menu-item>
-        </el-menu>
-      </el-aside>
-      <!-- TODO el-menu, el-submenu -->
+      </el-header>
       <el-container>
-        <el-header height= "180px">
-          <el-row>
-            <el-col :span="4"><div class="grid-content">hoge</div></el-col>
-            <el-col :span="4"><div class="grid-content">hoge</div></el-col>
-            <el-col :span="4"><div class="grid-content">hoge</div></el-col>
-            <el-col :span="4"><div class="grid-content">hoge</div></el-col>
-            <el-col :span="4"><el-button type="success">hogesys</el-button></el-col>
-            <el-col :span="4"><el-button type="danger">hogesys</el-button></el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="6"><div class="grid-content">hoge</div></el-col>
-            <el-col :span="6"><div class="grid-content">hoge</div></el-col>
-            <el-col :span="6"><div class="grid-content">hoge</div></el-col>
-            <el-col :span="6"><div class="grid-content">hoge</div></el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="12"><div class="grid-content">hoge</div></el-col>
-            <el-col :span="4"><div class="grid-content">hoge</div></el-col>
-            <el-col :span="5"><div class="grid-content">hoge</div></el-col>
-            <el-col :span="3"><div class="grid-content">hoge</div></el-col>
-          </el-row>
-        </el-header>
-        <!-- TODO 格子上に部品を配置 -->
-        <el-main>
+        <el-aside width="200px">
+          <!-- 行間がめっちゃ空く
           <ul>
             <li>hoge</li>
             <li>hoge</li>
@@ -66,7 +55,30 @@
             <li>hoge</li>
             <li>hoge</li>
           </ul>
-        </el-main>
+          -->
+          <el-menu default-active="2" @open="handleOpen" @close="handleClose">
+            <el-menu-item index="1"><i class="el-icon-star-on"></i>item 1</el-menu-item>
+            <el-menu-item index="2"><i class="el-icon-time"></i>item 2</el-menu-item>
+            <el-menu-item index="3" disabled><i class="el-icon-lollipop"></i>item 3</el-menu-item>
+            <el-menu-item index="4"><i class="el-icon-time"></i>item 4</el-menu-item>
+            <el-menu-item index="5"><i class="el-icon-time"></i>item 5</el-menu-item>
+            <el-menu-item index="6"><i class="el-icon-time"></i>item 6</el-menu-item>
+            <el-menu-item index="7"><i class="el-icon-time"></i>item 7</el-menu-item>
+            <el-menu-item index="8"><i class="el-icon-time"></i>item 8</el-menu-item>
+          </el-menu>
+        </el-aside>
+        <!-- TODO el-menu, el-submenu -->
+        <!-- TODO 格子上に部品を配置 -->
+          <el-main>
+            <ul v-loading="loading">
+              <li>hoge</li>
+              <li>hoge</li>
+              <li>hoge</li>
+              <li>hoge</li>
+              <li>hoge</li>
+            </ul>
+          </el-main>
+        </el-container>
         <el-footer height="120px">
           <el-row>
             <el-col :span="6"><div class="grid-content">hoge</div></el-col>
@@ -82,7 +94,6 @@
           </el-row>
         </el-footer>
         <!-- TODO 格子上に部品を配置、表とか -->
-      </el-container>
     </el-container>
   </div>
 </body>
@@ -94,13 +105,32 @@
     new Vue({
       el: '#app',
       data: function() {
-        return { visible: false }
+        return {
+          visible: false,
+          fullscreenLoading: false,
+          btnLoading: false,
+          dialogVisible: false,
+        }
       },
       methods: {
         handleOpen(key, keyPath){
           
         },
         handleClose(key, keyPath){
+        },
+        openFullScreen() {
+          this.fullscreenLoading = true;
+          setTimeout(() => {
+            this.fullscreenLoading = false;
+          }, 2000);
+        },
+        clickDanger() {
+          this.btnLoading = true;
+          setTimeout(() => {
+            this.btnLoading = false;
+          }, 2000);
+        },
+        openDialog() {
         }
       }
     })
