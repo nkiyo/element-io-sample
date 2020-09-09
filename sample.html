@@ -6,13 +6,53 @@
   <!-- TODO 縦に結合するgrid -->
   <!-- TODO gridの中にjs部品 -->
   <!-- import CSS -->
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  <!-- <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.js"></script> -->
+  <script>
+    var columnDefs = [
+      {headerName: "Make", field: "make", editable:true},
+      {headerName: "Model", field: "model"},
+      {headerName: "Price", field: "price"},
+    ]
+    var rowData = [
+      {make: "Toyota", model: "Celica", price: 35000},
+      {make: "Ford", model: "Mondeo", price: 32000},
+      {make: "Porsche", model: "Boxter", price: 72000}
+    ];
+    var gridOptions = {
+      columnDefs: columnDefs,
+      rowData: rowData
+    };
+    document.addEventListener('DOMContentLoaded', function() {
+        var gridDiv = document.querySelector('#myGrid');
+        new agGrid.Grid(gridDiv, gridOptions);
+    });
+  </script>
 </head>
 <body>
   <div id="app">
     <el-dialog title="hoge" :visible.sync="dialogVisible">
-    hoge
+      <el-table
+      height="300"
+      :data="gridData"
+      ref="filterTable"
+      :filters="[{text: '2016-05-01', value: '2016-05-01'}, {text: '2016-05-02', value: '2016-05-02'}, {text: '2016-05-03', value: '2016-05-03'}, {text: '2016-05-04', value: '2016-05-04'}]"
+      :filter-method="filterHandler"
+      border
+      stripe>
+        <el-table-column
+          property="date"
+          :filters="[{text: '2016-05-01', value: '2016-05-01'}, {text: '2016-05-02', value: '2016-05-02'}, {text: '2016-05-03', value: '2016-05-03'}, {text: '2016-05-04', value: '2016-05-04'}]"
+          :filter-method="filterHandler"
+          label="Date"
+          width="150"></el-table-column>
+        <el-table-column property="name" label="Name" width="200"></el-table-column>
+        <el-table-column property="address" label="Address"></el-table-column>
+      </el-table>
     </el-dialog>
+
     <el-container>
       <el-header height= "180px">
         <el-row>
@@ -25,7 +65,7 @@
               v-loading.fullScreen.lock="fullscreenLoading"
               @click="dialogVisible = true"
               type="success">
-              hogesys
+              dialog
             </el-button>
           </el-col>
           <el-col :span="4"><el-button type="danger" @click="clickDanger" v-loading="btnLoading">hogesys</el-button></el-col>
@@ -98,9 +138,7 @@
   </div>
 </body>
   <!-- import Vue before Element -->
-  <script src="https://unpkg.com/vue/dist/vue.js"></script>
   <!-- import JavaScript -->
-  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
   <script>
     new Vue({
       el: '#app',
@@ -110,9 +148,45 @@
           fullscreenLoading: false,
           btnLoading: false,
           dialogVisible: false,
+          gridData: [{
+            date: '2016-05-02',
+            name: 'John Smith',
+            address: 'No.1518,  Jinshajiang Road, Putuo District'
+          },
+          {
+            date: '2016-05-04',
+            name: 'John Smith',
+            address: 'No.1518,  Jinshajiang Road, Putuo District'
+          },
+          {
+            date: '2016-05-01',
+            name: 'John Smith',
+            address: 'No.1518,  Jinshajiang Road, Putuo District'
+          },
+          {
+            date: '2016-05-01',
+            name: 'John Smith',
+            address: 'No.1518,  Jinshajiang Road, Putuo District'
+          },
+          {
+            date: '2016-05-01',
+            name: 'John Smith',
+            address: 'No.1518,  Jinshajiang Road, Putuo District'
+          },
+          {
+            date: '2016-05-03',
+            name: 'John Smith',
+            address: 'No.1518,  Jinshajiang Road, Putuo District'
+          }],
         }
       },
       methods: {
+        resetDateFilter() {
+          this.$refs.filterTable.clearFilter('date');
+        },
+        clearFilter() {
+          this.$refs.filterTable.clearFilter();
+        },
         handleOpen(key, keyPath){
           
         },
@@ -131,6 +205,10 @@
           }, 2000);
         },
         openDialog() {
+        },
+        filterHandler(value, row, column) {
+          const property = column['property'];
+          return row[property] === value;
         }
       }
     })
