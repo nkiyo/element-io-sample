@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <!-- TODO gridの中にgrid -->
-  <!-- TODO 縦に結合するgrid -->
-  <!-- TODO gridの中にjs部品 -->
+  <!-- TODO el-table 任意のフィルタ -->
   <!-- import CSS -->
   <script src="https://unpkg.com/vue/dist/vue.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
@@ -40,8 +37,8 @@
       ref="filterTable"
       :filters="[{text: '2016-05-01', value: '2016-05-01'}, {text: '2016-05-02', value: '2016-05-02'}, {text: '2016-05-03', value: '2016-05-03'}, {text: '2016-05-04', value: '2016-05-04'}]"
       :filter-method="filterHandler"
-      border
-      stripe>
+      :cell-class-name="tableCellClassName"
+      border>
         <el-table-column
           property="date"
           :filters="[{text: '2016-05-01', value: '2016-05-01'}, {text: '2016-05-02', value: '2016-05-02'}, {text: '2016-05-03', value: '2016-05-03'}, {text: '2016-05-04', value: '2016-05-04'}]"
@@ -181,6 +178,17 @@
         }
       },
       methods: {
+        tableCellClassName({row, column, rowIndex, columnIndex}) {
+          //if (rowIndex === 1) {
+          //  return 'warning-row';
+          //} else if (rowIndex === 3) {
+          //  return 'success-row';
+          //}
+          if(rowIndex %2 === 0 && columnIndex % 2 === 0) {
+            return 'success-row';
+          }
+          return 'warning-row';
+        },
         resetDateFilter() {
           this.$refs.filterTable.clearFilter('date');
         },
@@ -246,6 +254,14 @@
     
     .el-container:nth-child(7) .el-aside {
       line-height: 320px;
+    }
+    .el-table .warning-row {
+      color: #ffffff;
+      background: #ff0000;
+    }
+
+    .el-table .success-row {
+      background: #00ff00;
     }
   </style>
 </html>
