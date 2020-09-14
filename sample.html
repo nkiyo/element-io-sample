@@ -32,7 +32,7 @@
 </head>
 <body>
   <div id="app">
-    <el-dialog title="hoge" :visible.sync="dialogVisible">
+    <el-dialog title="hoge" :visible.sync="dialogVisible" width="75%">
       <el-table
       height="300"
       :data="gridData"
@@ -49,6 +49,18 @@
           width="150"></el-table-column>
         <el-table-column property="name" label="Name" width="200"></el-table-column>
         <el-table-column property="address" label="Address"></el-table-column>
+        <el-table-column align="center" width="100px">
+          <template slot-scope="scope">
+            <el-button size="mini" type="danger">
+              確認
+            </el-button>
+          </template>
+        </el-table-column>
+        <el-table-column align="center" width="100px">
+          <template slot-scope="scope">
+            <el-cascader :options="options" :show-all-levels="false">テスト</el-cascader>
+          </template>
+        </el-table-column>
       </el-table>
     </el-dialog>
 
@@ -110,7 +122,7 @@
         <!-- TODO 格子上に部品を配置 -->
           <el-main>
             <ul v-loading="loading">
-              <li>hoge</li>
+              <li>hoge999</li>
               <li>hoge</li>
               <li>hoge</li>
               <li>hoge</li>
