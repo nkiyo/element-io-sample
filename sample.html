@@ -58,7 +58,10 @@
         </el-table-column>
         <el-table-column align="center" width="100px">
           <template slot-scope="scope">
-            <el-cascader :options="options" :show-all-levels="false">テスト</el-cascader>
+            <el-cascader
+              :options="options"
+              placeholder="選択"
+              :show-all-levels="false"></el-cascader>
           </template>
         </el-table-column>
       </el-table>
@@ -189,6 +192,26 @@
             name: 'John Smith',
             address: 'No.1518,  Jinshajiang Road, Putuo District'
           }],
+          options: [
+            {
+              value: 'opt1',
+              label: 'lbl1',
+              children: [
+                {
+                  value: 'opt1-1',
+                  label: 'lbl1-1',
+                },
+                {
+                  value: 'opt1-2',
+                  label: 'lbl1-2',
+                },
+              ]
+            },
+            {
+              value: 'opt2',
+              label: 'lbl2',
+            },
+          ],
         }
       },
       methods: {
