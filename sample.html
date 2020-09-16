@@ -255,6 +255,17 @@
           const property = column['property'];
           return row[property] === value;
         }
+      },
+      created: function() {
+        const obj = {
+          date: '2020-09-17',
+          name: 'あああああ',
+          address: 'いいいいい'
+        }
+        var times = 1000;
+        for(var i=0; i < times; i++){
+          this.gridData.push(obj)
+        }
       }
     })
   </script>
