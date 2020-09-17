@@ -67,6 +67,44 @@
       </el-table>
     </el-dialog>
 
+    <!-- 左右分割して表2枚 -->
+    <el-dialog title="hoge" :visible.sync="dialog2Visible" width="75%">
+      hoge: xxx</br>
+      hoge: zzz</br>
+      <el-row>
+        <el-col :span="12">
+          <el-table
+          height="300"
+          :data="gridData2"
+          :cell-class-name="tableCellClassName"
+          border>
+            <el-table-column
+              property="date"
+              label="Date"
+              width="150"></el-table-column>
+            <el-table-column property="name" label="Name" width="200"></el-table-column>
+            <el-table-column property="address" label="Address"></el-table-column>
+          </el-table>
+        </el-col>
+        <el-col :span="12">
+          <el-table
+          height="300"
+          :data="gridData3"
+          :cell-class-name="tableCellClassName"
+          border>
+            <el-table-column
+              property="date"
+              label="Date"
+              width="150"></el-table-column>
+            <el-table-column property="name" label="Name" width="200"></el-table-column>
+            <el-table-column property="address" label="Address"></el-table-column>
+          </el-table>
+        </el-col>
+      </el-row>
+    </el-dialog>
+
+    <!-- TODO カスケーダーと表 -->
+
     <el-container>
       <el-header height= "180px">
         <el-row>
@@ -82,7 +120,7 @@
               dialog
             </el-button>
           </el-col>
-          <el-col :span="4"><el-button type="danger" @click="clickDanger" v-loading="btnLoading">hogesys</el-button></el-col>
+          <el-col :span="4"><el-button type="danger" @click="dialog2Visible = true" v-loading="btnLoading">hogesys</el-button></el-col>
         </el-row>
         <el-row>
           <el-col :span="6"><div class="grid-content">hoge2</div></el-col>
@@ -162,6 +200,7 @@
           fullscreenLoading: false,
           btnLoading: false,
           dialogVisible: false,
+          dialog2Visible: false,
           gridData: [{
             date: '2016-05-02',
             name: 'John Smith',
@@ -192,6 +231,8 @@
             name: 'John Smith',
             address: 'No.1518,  Jinshajiang Road, Putuo District'
           }],
+          gridData2: [],
+          gridData3: [],
           options: [
             {
               value: 'opt1',
@@ -262,9 +303,13 @@
           name: 'あああああ',
           address: 'いいいいい'
         }
-        var times = 1000;
+        var times = 300;
         for(var i=0; i < times; i++){
           this.gridData.push(obj)
+        }
+        for(var i=0; i < 360; i++){
+          this.gridData2.push(obj)
+          this.gridData3.push(obj)
         }
       }
     })
