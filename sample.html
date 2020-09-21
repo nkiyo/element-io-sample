@@ -32,7 +32,11 @@
 </head>
 <body>
   <div id="app">
-    <el-dialog title="hoge" :visible.sync="dialogVisible" width="75%">
+    <el-dialog title="hoge"
+      :visible.sync="dialogVisible"
+      @open="onDialogOpen"
+      @opened="onDialogOpened"
+      width="75%">
       <el-table
       height="300"
       :data="gridData"
@@ -104,6 +108,7 @@
     </el-dialog>
 
     <!-- TODO カスケーダーと表 -->
+    <!-- :laoading="isDialogOpening" -->
 
     <el-container>
       <el-header height= "180px">
@@ -115,7 +120,8 @@
           <el-col :span="4">
             <el-button
               v-loading.fullScreen.lock="fullscreenLoading"
-              @click="dialogVisible = true"
+              @click="onDialogOpenButtonClicked()"
+              :loading="isDialogOpening"
               type="success">
               dialog
             </el-button>
@@ -201,6 +207,7 @@
           btnLoading: false,
           dialogVisible: false,
           dialog2Visible: false,
+          isDialogOpening: false,
           gridData: [{
             date: '2016-05-02',
             name: 'John Smith',
@@ -295,7 +302,20 @@
         filterHandler(value, row, column) {
           const property = column['property'];
           return row[property] === value;
-        }
+        },
+        onDialogOpenButtonClicked() {
+          this.isDialogOpening = true;
+          this.dialogVisible = true,
+          console.log(`onDialogOpenButtonClicked()`)
+        },
+        onDialogOpen() {
+          this.isDialogOpening = true;
+          console.log(`onDialogOpen()`)
+        },
+        onDialogOpened() {
+          this.isDialogOpening = false;
+          console.log(`onDialogOpened()`)
+        },
       },
       created: function() {
         const obj = {
@@ -303,11 +323,11 @@
           name: 'あああああ',
           address: 'いいいいい'
         }
-        var times = 300;
+        var times = 500;
         for(var i=0; i < times; i++){
           this.gridData.push(obj)
         }
-        for(var i=0; i < 360; i++){
+        for(var i=0; i < 30; i++){
           this.gridData2.push(obj)
           this.gridData3.push(obj)
         }
