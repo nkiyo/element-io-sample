@@ -304,17 +304,43 @@
           return row[property] === value;
         },
         onDialogOpenButtonClicked() {
-          this.isDialogOpening = true;
-          this.dialogVisible = true,
           console.log(`onDialogOpenButtonClicked()`)
+
+          // bad1
+          // el-dialog を開く間、el-buttonをloadingできない
+          //this.isDialogOpening = true;
+          //this.dialogVisible = true;
+
+          // bad2
+          // el-dialog を開く間、el-buttonをloadingできない
+          //this.isDialogOpening = true;
+          //this.$nextTick(() => {
+          //  this.dialogVisible = true;
+          //  console.log(`inner nextTick`)
+          //});
+
+          // good
+          // ブラウザにloadingを表示させるためのsetTimeout
+          // see https://stackoverflow.com/a/47636157
+          this.isDialogOpening = true;
+          setTimeout(() => {
+            this.dialogVisible = true;
+
+            // ブラウザにel-dialogを表示させるためのsetTimeout
+            setTimeout(() => {
+              // dialogが開いたあと、onDialogOpenedが呼び出されるまで、少し時間がかかる。ここでフラグを落とす
+              this.isDialogOpening = false;
+            }, 0);
+          }, 0);
+
         },
         onDialogOpen() {
           this.isDialogOpening = true;
           console.log(`onDialogOpen()`)
         },
         onDialogOpened() {
-          this.isDialogOpening = false;
           console.log(`onDialogOpened()`)
+          //this.isDialogOpening = false;
         },
       },
       created: function() {
@@ -323,7 +349,7 @@
           name: 'あああああ',
           address: 'いいいいい'
         }
-        var times = 500;
+        var times = 100;
         for(var i=0; i < times; i++){
           this.gridData.push(obj)
         }
